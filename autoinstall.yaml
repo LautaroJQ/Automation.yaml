@@ -22,9 +22,20 @@ autoinstall:
       expire: true   # 🔑 GNOME pedirá cambio de contraseña al primer login
 
   packages:
+    - libreoffice
     - vim
     - curl
 
   late-commands:
     # Mensaje visible en login gráfico y terminal
     - curtin in-target -- bash -c 'echo "⚠️ El usuario Epidater es TEMPORAL. Debe cambiar su NOMBRE DE USUARIO inmediatamente (usermod -l)." > /etc/motd'
+    
+    # Google Chrome
+    - curtin in-target -- wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - curtin in-target -- apt install -y /tmp/chrome.deb
+
+    # AnyDesk
+    - curtin in-target -- bash -c "wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -"
+    - curtin in-target -- bash -c "echo 'deb http://deb.anydesk.com/ all main' > /etc/apt/sources.list.d/anydesk.list"
+    - curtin in-target -- apt update
+    - curtin in-target -- apt install -y anydesk
