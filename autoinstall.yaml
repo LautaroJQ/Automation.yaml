@@ -7,12 +7,12 @@ autoinstall:
 
   identity:
     hostname: infraestructura
-    username: Infraestructura
+    username: infraestructura
     password: "$6$CWxy77hW6buwSc8N$DmWFHzVMW3noQXsYUJD.SwLAPTRW6bLDc.4ISKjC4oVA.xnDd3TSzSTLaJJmT/5vs3wZfun/T0iLphFZ8q1T.."
 
   user-data:
     users:
-      - name: Epidater
+      - name: epidater
         gecos: Usuario temporal - debe renombrarse
         sudo: ALL=(ALL) ALL
         groups: [adm, sudo]
@@ -25,12 +25,3 @@ autoinstall:
     - libreoffice
     - vim
     - curl
-
-  late-commands:
-    - curtin in-target -- bash -c 'echo "⚠️ El usuario Epidater es TEMPORAL. Debe cambiar su NOMBRE DE USUARIO inmediatamente (usermod -l)." > /etc/motd'
-    - curtin in-target -- wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - curtin in-target -- apt install -y /tmp/chrome.deb
-    - curtin in-target -- bash -c "wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -"
-    - curtin in-target -- bash -c "echo 'deb http://deb.anydesk.com/ all main' > /etc/apt/sources.list.d/anydesk.list"
-    - curtin in-target -- apt update
-    - curtin in-target -- apt install -y anydesk
