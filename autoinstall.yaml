@@ -1,0 +1,30 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  locale: es_AR
+  keyboard:
+    layout: latam
+
+  identity:
+    hostname: infraestructura
+    username: Infraestructura
+    password: "$6$CWxy77hW6buwSc8N$DmWFHzVMW3noQXsYUJD.SwLAPTRW6bLDc.4ISKjC4oVA.xnDd3TSzSTLaJJmT/5vs3wZfun/T0iLphFZ8q1T.."
+
+  users:
+    - name: Epidater
+      gecos: Usuario temporal - debe renombrarse
+      sudo: ALL=(ALL) ALL
+      groups: [adm, sudo]
+      shell: /bin/bash
+      lock_passwd: false
+      passwd: "$6$VKvq/iEQrUC7JDoQ$1BjDjQ66TtbNQPMMobDedJ03dWDnbkkBX4YTktvT6r1SyFGvZQEELW28KqM811HtmvcneluCgB936RynRTBa/1"
+      expire: true   # 🔑 GNOME pedirá cambio de contraseña al primer login
+
+  packages:
+    - vim
+    - curl
+
+  late-commands:
+    # Mensaje visible en login gráfico y terminal
+    - curtin in-target -- bash -c 'echo "⚠️ El usuario Epidater es TEMPORAL. Debe cambiar su NOMBRE DE USUARIO inmediatamente (usermod -l)." > /etc/motd'
