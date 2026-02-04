@@ -11,15 +11,16 @@ autoinstall:
     username: Infraestructura
     password: "$6$CWxy77hW6buwSc8N$DmWFHzVMW3noQXsYUJD.SwLAPTRW6bLDc.4ISKjC4oVA.xnDd3TSzSTLaJJmT/5vs3wZfun/T0iLphFZ8q1T.."
 
-  users:
-    - name: Epidater
-      gecos: Usuario temporal - debe renombrarse
-      sudo: ALL=(ALL) ALL
-      groups: [adm, sudo]
-      shell: /bin/bash
-      lock_passwd: false
-      passwd: "$6$VKvq/iEQrUC7JDoQ$1BjDjQ66TtbNQPMMobDedJ03dWDnbkkBX4YTktvT6r1SyFGvZQEELW28KqM811HtmvcneluCgB936RynRTBa/1"
-      expire: true   # 🔑 GNOME pedirá cambio de contraseña al primer login
+  user-data:
+    users:
+      - name: Epidater
+        gecos: Usuario temporal - debe renombrarse
+        sudo: ALL=(ALL) ALL
+        groups: [adm, sudo]
+        shell: /bin/bash
+        lock_passwd: false
+        passwd: "$6$VKvq/iEQrUC7JDoQ$1BjDjQ66TtbNQPMMobDedJ03dWDnbkkBX4YTktvT6r1SyFGvZQEELW28KqM811HtmvcneluCgB936RynRTBa/1"
+        expire: true
 
   packages:
     - libreoffice
@@ -27,14 +28,9 @@ autoinstall:
     - curl
 
   late-commands:
-    # Mensaje visible en login gráfico y terminal
     - curtin in-target -- bash -c 'echo "⚠️ El usuario Epidater es TEMPORAL. Debe cambiar su NOMBRE DE USUARIO inmediatamente (usermod -l)." > /etc/motd'
-    
-    # Google Chrome
     - curtin in-target -- wget -q -O /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - curtin in-target -- apt install -y /tmp/chrome.deb
-
-    # AnyDesk
     - curtin in-target -- bash -c "wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -"
     - curtin in-target -- bash -c "echo 'deb http://deb.anydesk.com/ all main' > /etc/apt/sources.list.d/anydesk.list"
     - curtin in-target -- apt update
