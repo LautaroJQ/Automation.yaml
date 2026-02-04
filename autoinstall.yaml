@@ -9,4 +9,3 @@ autoinstall:
   packages:
     - vim
     - libreoffice
-  late-commands:
