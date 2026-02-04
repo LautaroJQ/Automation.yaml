@@ -1,27 +1,12 @@
 autoinstall:
   version: 1
-
-  locale: es_AR
-  keyboard:
-    layout: latam
-
   identity:
     hostname: infraestructura
-    username: Infraestructura
-    password: "$6$CWxy77hW6buwSc8N$DmWFHzVMW3noQXsYUJD.SwLAPTRW6bLDc.4ISKjC4oVA.xnDd3TSzSTLaJJmT/5vs3wZfun/T0iLphFZ8q1T.."
-
-  user-data:
-    users:
-      - name: Epidater
-        gecos: Usuario temporal - debe renombrarse
-        sudo: ALL=(ALL) ALL
-        groups: [adm, sudo]
-        shell: /bin/bash
-        lock_passwd: false
-        passwd: "$6$VKvq/iEQrUC7JDoQ$1BjDjQ66TtbNQPMMobDedJ03dWDnbkkBX4YTktvT6r1SyFGvZQEELW28KqM811HtmvcneluCgB936RynRTBa/1"
-        expire: true
-
+    username: infraestructura
+    # generate a SHA512-based encrypted password: $ openssl passwd -6
+    password: "$6$7u5I4FLe9EmlI1wE$d03HYpVHtVv0Y.XX5QMtkbk7Ojw.0ommDNDvYzIn5i.pAfsKHg.hp95aDMApwX2xdiJpxkszdAGK35ATnN09h0"
+    
   packages:
-    - libreoffice
     - vim
-    - curl
+    - libreoffice
+  late-commands:
